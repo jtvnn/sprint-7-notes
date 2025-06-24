@@ -1,4 +1,4 @@
-import { Outlet, useParams } from "react-router";
+import { NavLink, Outlet, useParams } from "react-router";
 import Project1 from "./Project1";
 import Project2 from "./Project2";
 
@@ -9,8 +9,12 @@ function Projects() {
     <div>
       HERE ARE THE PROJECTS I HAVE CREATED!
       <ul>
-        <li>Project 1</li>
-        <li>Project 2</li>
+        <li>
+          <NavLink to="/projects/project1">Project 1</NavLink>
+        </li>
+        <li>
+          <NavLink to="/projects/project2">Project 2</NavLink>
+        </li>
         <li>Project 3</li>
         <li>Project 4</li>
         <li>Project 5</li>
