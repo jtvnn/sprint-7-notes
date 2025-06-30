@@ -16,6 +16,9 @@ function Layout() {
           <div className="nav-item">
             <NavLink to="/about">About</NavLink>
           </div>
+          <div className="nav-item">
+            <NavLink to="/form">Form</NavLink>
+          </div>
         </div>
       </nav>
       <Outlet />
