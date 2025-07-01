@@ -3,4 +3,5 @@ export interface HomeFormData {
     class: string;
     hometown: string;
     skills: string[];
+    favouriteFood?: string;
 }

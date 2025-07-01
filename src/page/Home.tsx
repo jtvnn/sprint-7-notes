@@ -12,61 +12,70 @@ function Home() {
   const [formData, setFormData] = useState(initData);
   const [errors, setErrors] = useState("");
 
+  useEffect(() => {
+    validateInputs();
+  });
+
   const handleInputChange = (
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
-    let newFormData = { ...formData };
+    let updatedFormData = { ...formData };
     if (name == "skills") {
-      if (newFormData.skills.includes(value)) {
-        newFormData.skills = newFormData.skills.filter(
+      if (updatedFormData.skills.includes(value)) {
+        const newValue = updatedFormData.skills.filter(
           (item) => item !== value
         );
+        updatedFormData.skills = newValue;
       } else {
-        newFormData.skills.push(value);
+        updatedFormData.skills.push(value);
       }
     } else {
-      newFormData = { ...formData, [name]: value };
+      updatedFormData = { ...formData, [name]: value };
     }
-    setFormData(newFormData);
-    console.log(newFormData);
+    setFormData(updatedFormData);
+    console.log(updatedFormData);
   };
 
-  useEffect(() => {
-    validateInputs();
-  });
-
   const validateInputs = () => {
-    let isNumber = false;
-    ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((number) => {
-      if (formData.name.includes(number)) {
-        isNumber = true;
-      }
-    });
+    const isNumber = formData.name.match(/\d/);
+    const isSpecialChar = formData.name.match(/\W/);
 
     if (isNumber) {
       setErrors("Name must not contain a number!!!");
+    } else if (isSpecialChar) {
+      setErrors("Name must not contain a special character!!!");
     } else {
       setErrors("");
     }
   };
 
+  const handleSubmitAction = (myFormData: FormData) => {
+    console.log(myFormData);
+  };
+
   return (
     <>
-      <form>
+      <form action={handleSubmitAction}>
         <h3>Welcome to The Game!</h3>
         First step, let's create your character.
         <div>
           <label>Character Name:</label>
-          <input type="text" name="name" onChange={handleInputChange}></input>
+          <input
+            type="text"
+            name="name"
+            required
+            onChange={handleInputChange}
+          ></input>
         </div>
         <div>
           Character Class:
           <br />
           <label>Mage:</label>
           <input
+            required
             type="radio"
             name="class"
             value="mage"
@@ -74,6 +83,7 @@ function Home() {
           ></input>
           <label>Fighter:</label>
           <input
+            required
             type="radio"
             name="class"
             value="fighter"
@@ -81,6 +91,7 @@ function Home() {
           ></input>
           <label>Archer:</label>
           <input
+            required
             type="radio"
             name="class"
             value="archer"
@@ -98,6 +109,7 @@ function Home() {
         </div>
         <div>
           Skills:
+          <br></br>
           <label>Stealth:</label>
           <input
             type="checkbox"
@@ -142,6 +154,7 @@ function Home() {
         ) : (
           ""
         )}
+        <button type="submit">SUBMIT</button>
       </form>
     </>
   );
