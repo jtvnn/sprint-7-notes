@@ -1,15 +1,13 @@
 function searchMatrix(matrix, target) {
-  let targetFound = false;
-
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
       if (matrix[i][j] === target) {
-        targetFound = true;
+        return [j + 1, i + 1];
       }
     }
   }
 
-  return targetFound;
+  return null;
 }
 
 function printMatrix(matrix) {
@@ -21,12 +19,28 @@ function printMatrix(matrix) {
   }
 }
 
+function searchMatrixBoolean(matrix, target) {
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      if (matrix[i][j] === target) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
 const matrix = [
   ["a", "b", "c"],
   ["d", "e", "f"],
   ["g", "h", "i"],
 ];
+// return [i, j]
+searchMatrix(matrix, "c"); // [3, 1]
+searchMatrix(matrix, "h"); // [2, 3]
+searchMatrix(matrix, "x"); // null
 
 printMatrix(matrix);
-searchMatrix(matrix, "d"); // true
-searchMatrix(matrix, "s"); // false
+searchMatrixBoolean(matrix, "d"); // true
+searchMatrixBoolean(matrix, "s"); // false
